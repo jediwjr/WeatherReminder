@@ -50,13 +50,15 @@ def get_weather(zipcode):
    return data
 
 def generate_weather_string(data):
-   return "It will be %s in %s on %s. The temperature will be %s to %s %s." % (
+   return "It will be %s in %s on %s. The temperature will be %s to %s %s (%.1f to %.1f C)." % (
        data['item']['forecast'][1]['text'],
        data['location']['city'],
        data['item']['forecast'][1]['date'],
        data['item']['forecast'][1]['low'],
        data['item']['forecast'][1]['high'],
        data['units']['temperature'],
+       (int(data['item']['forecast'][1]['low']) - 32) * 5.0/9.0,
+       (int(data['item']['forecast'][1]['high']) - 32) * 5.0/9.0,
    )
 
 def test_email(request):
@@ -73,7 +75,7 @@ def test_email(request):
    body = "Dear %s,\n\n" % request.user.username
    for zipcode in zipcodes:
        body += generate_weather_string(get_weather(zipcode)) + "\n"
-   body += "\nBest,\nWeather Reminder"
+   body += "\nBest,\nYour personal weather reminder from How is the Weather"
    message = EmailMessage("Email Testing", body, to=[request.user.email])
    message.send()
    return HttpResponseRedirect("/")
