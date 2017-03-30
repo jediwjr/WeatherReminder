@@ -74,7 +74,7 @@ def test_email(request):
        zipcodes.add(reminder.zipcode)
    body = "Dear %s,\n\n" % request.user.username
    for zipcode in zipcodes:
-       body += generate_weather_string(get_weather(zipcode)) + "\n"
+       body += generate_weather_string(get_weather(zipcode)) + "\n\n"
    body += "\nBest,\nYour personal weather reminder from How is the Weather"
    message = EmailMessage("Email Testing", body, to=[request.user.email])
    message.send()
