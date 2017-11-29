@@ -1,3 +1,3 @@
 # WeatherReminder
 
-http://howistheweather.mooo.com/
+http://howistheweather.jumpingcrab.com<br />
